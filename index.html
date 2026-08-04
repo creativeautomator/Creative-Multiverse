@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Multiverse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15130f;
+    --panel:#1f1c16;
+    --panel-raised:#2a2519;
+    --line:#3d372a;
+    --card:#f1e8d6;
+    --card-ink:#241f14;
+    --gold:#c9a227;
+    --muted:#9a9078;
+    --ad-crawler:#c9573c;
+    --jump-gap:#4472b8;
+    --logo-drop:#c9a227;
+    --event:#3f8f7a;
+    --playback:#7a8a99;
+    --kol:#b0568f;
+    --endo:#d18a3a;
+    --block:#8a6a4a;
+    --obbcbb:#3a7a72;
+    --social:#5a9e4a;
+    --short-film:#6a5aa8;
+    --media-avp:#3a6ea5;
+    --quasi-tvc:#b8433a;
+    --other:#8a8072;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:#eee6d3;font-family:'Inter',sans-serif;}
+  #root{min-height:100vh;padding-bottom:50px;}
+
+  .header{
+    padding:26px 20px 18px;border-bottom:3px solid var(--gold);
+    background:repeating-linear-gradient(135deg, var(--panel-raised) 0px, var(--panel-raised) 14px, var(--panel) 14px, var(--panel) 28px);
+  }
+  .header-inner{max-width:1000px;margin:0 auto;}
+  .header h1{
+    font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:0.06em;margin:0;
+    color:#f4ecd8;text-shadow:0 2px 0 rgba(0,0,0,0.4);
+  }
+
+  .content{max-width:1000px;margin:0 auto;padding:20px;}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center;}
+  .search{
+    flex:1;min-width:200px;background:var(--panel-raised);border:1px solid var(--line);
+    color:#eee6d3;border-radius:5px;padding:11px 14px;font-size:14px;
+  }
+  .search:focus{outline:1px solid var(--gold);}
+  select{
+    background:var(--panel-raised);border:1px solid var(--line);color:#eee6d3;
+    border-radius:5px;padding:10px 10px;font-size:13px;
+  }
+
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+  .chip{
+    font-size:11px;text-transform:uppercase;letter-spacing:0.05em;padding:5px 10px;
+    border-radius:20px;border:1px solid var(--line);color:var(--muted);cursor:pointer;
+    background:var(--panel);
+  }
+  .chip.active{background:var(--gold);color:#1a1305;border-color:var(--gold);font-weight:600;}
+
+  .count-line{font-size:12px;color:var(--muted);margin-bottom:14px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));gap:16px;}
+  .empty{
+    grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);
+    border:1px dashed var(--line);border-radius:6px;
+  }
+  .empty h3{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em;color:#eee6d3;font-size:22px;}
+
+  .card{
+    background:var(--card);color:var(--card-ink);border-radius:4px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.35);position:relative;overflow:hidden;
+    display:flex;flex-direction:column;cursor:pointer;transition:transform 0.12s ease;
+  }
+  .card:hover{transform:translateY(-2px);}
+  .card-tab{height:8px;width:100%;}
+  .card-thumb{
+    height:110px;background:#e4d9c1;display:flex;align-items:center;justify-content:center;
+    font-size:34px;color:rgba(36,31,20,0.25);border-bottom:1px solid rgba(36,31,20,0.15);
+  }
+  .card-body{padding:12px 14px 14px;}
+  .card-title{font-family:'Special Elite',monospace;font-size:15px;line-height:1.3;margin:0 0 4px;}
+  .card-brand{font-size:12px;color:#5a5140;font-weight:600;}
+  .card-meta{
+    display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;
+    font-size:10px;color:#7a715c;margin-top:8px;
+  }
+  .card-tags{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;}
+  .tag-pill{
+    font-size:9px;background:rgba(36,31,20,0.08);padding:2px 6px;border-radius:3px;
+    color:#5a5140;text-transform:uppercase;letter-spacing:0.03em;
+  }
+
+  .modal-bg{
+    position:fixed;inset:0;background:rgba(8,7,5,0.75);display:flex;
+    align-items:center;justify-content:center;z-index:50;padding:20px;overflow-y:auto;
+  }
+  .modal{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:24px;max-width:480px;width:100%;max-height:88vh;overflow-y:auto;
+  }
+  .detail-tab{height:6px;border-radius:3px;margin-bottom:14px;}
+  .detail-brand{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:0.06em;}
+  .detail-title{font-family:'Special Elite',monospace;font-size:20px;margin:4px 0 10px;}
+  .detail-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;}
+  .detail-notes{font-size:13px;line-height:1.5;margin:14px 0;color:#d8cfb8;}
+  .detail-tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0;}
+  .watch-link{
+    display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;
+    background:var(--gold);color:#1a1305;padding:10px 18px;border-radius:5px;
+    text-decoration:none;font-size:16px;margin-top:6px;
+  }
+  .footnote{font-size:11px;color:var(--muted);margin-top:10px;}
+  .close-btn{
+    background:none;border:1px solid var(--line);color:#eee6d3;border-radius:5px;
+    padding:8px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;margin-top:14px;
+  }
+  .load-msg{text-align:center;padding:60px 20px;color:var(--muted);}
+
+  @media (max-width:480px){
+    .header h1{font-size:30px;}
+    .grid{grid-template-columns:repeat(auto-fill, minmax(150px,1fr));}
+  }
+</style>
+</head>
+<body>
+<div id="root"><div class="load-msg">Loading catalog...</div></div>
+
+<script>
+let items = [];
+let ui = { search:'', format:'all', platform:'all' };
+
+const FORMAT_COLOR = {
+  'Ad Crawler':'var(--ad-crawler)', 'Jump-to-Gap':'var(--jump-gap)', 'Logo Drop':'var(--logo-drop)',
+  'Event Highlights':'var(--event)', 'Playback':'var(--playback)', 'KOL Video':'var(--kol)',
+  'Endo Plug':'var(--endo)', 'Block Plug':'var(--block)', 'OBB/CBB':'var(--obbcbb)',
+  'Social Video':'var(--social)', 'Short Film':'var(--short-film)', 'Media Update AVP':'var(--media-avp)',
+  'Quasi TVC':'var(--quasi-tvc)', 'Others':'var(--other)'
+};
+const FORMAT_ICON = {
+  'Ad Crawler':'📜', 'Jump-to-Gap':'⏭️', 'Logo Drop':'🏷️', 'Event Highlights':'🎉',
+  'Playback':'▶️', 'KOL Video':'🌟', 'Endo Plug':'📣', 'Block Plug':'🧱',
+  'OBB/CBB':'🎬', 'Social Video':'📱', 'Short Film':'🎥', 'Media Update AVP':'📡',
+  'Quasi TVC':'🎯', 'Others':'🎞️'
+};
+const FORMATS = Object.keys(FORMAT_ICON);
+const PLATFORMS = ['TV','Facebook','Instagram','TikTok','YouTube','Multi-platform','Other'];
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+function escapeAttr(str){ return escapeHtml(str).replace(/"/g,'&quot;'); }
+
+async function loadData(){
+  try{
+    const res = await fetch('./data.json', { cache: 'no-store' });
+    const json = await res.json();
+    items = json.items || [];
+  }catch(e){
+    console.error('Could not load data.json', e);
+    items = [];
+  }
+  render();
+}
+
+function render(){
+  const root = document.getElementById('root');
+  root.innerHTML = `
+    <div class="header"><div class="header-inner"><h1>Creative Multiverse</h1></div></div>
+    <div class="content" id="content"></div>
+  `;
+  renderContent();
+}
+
+function renderContent(){
+  const el = document.getElementById('content');
+  const formatChips = ['all', ...FORMATS].map(f => `
+    <span class="chip ${ui.format===f?'active':''}" onclick="setFormat('${f}')">${f==='all'?'All formats':f}</span>
+  `).join('');
+
+  let filtered = items.slice();
+  if(ui.format !== 'all') filtered = filtered.filter(i => i.format === ui.format);
+  if(ui.platform !== 'all') filtered = filtered.filter(i => i.platform === ui.platform);
+  if(ui.search.trim()){
+    const q = ui.search.toLowerCase();
+    filtered = filtered.filter(i => {
+      const hay = [i.title,i.brand,i.campaign,i.talent,i.tags,i.notes].join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+  }
+  filtered.sort((a,b) => new Date(b.dateProduced||b.createdAt||0) - new Date(a.dateProduced||a.createdAt||0));
+
+  el.innerHTML = `
+    <div class="toolbar">
+      <input class="search" type="text" placeholder="Search by title, brand, campaign, talent, tags..." value="${escapeAttr(ui.search)}" oninput="setSearch(this.value)">
+      <select onchange="setPlatform(this.value)">
+        <option value="all">All platforms</option>
+        ${PLATFORMS.map(p => `<option value="${p}" ${ui.platform===p?'selected':''}>${p}</option>`).join('')}
+      </select>
+    </div>
+    <div class="chips">${formatChips}</div>
+    <div class="count-line">${filtered.length} execution${filtered.length===1?'':'s'} ${items.length ? `(of ${items.length} total)` : ''}</div>
+    <div class="grid">
+      ${filtered.length === 0 ? `
+        <div class="empty">
+          <h3>${items.length===0 ? 'Catalog is empty' : 'Nothing found'}</h3>
+          <p>${items.length===0 ? 'Check back once entries have been published.' : 'Try a different search or filter.'}</p>
+        </div>
+      ` : filtered.map(cardHTML).join('')}
+    </div>
+  `;
+}
+
+function cardHTML(item){
+  const color = FORMAT_COLOR[item.format] || 'var(--other)';
+  const icon = FORMAT_ICON[item.format] || '🎞️';
+  const tags = (item.tags||'').split(',').map(t=>t.trim()).filter(Boolean).slice(0,4);
+  return `
+    <div class="card" onclick='openDetail(${JSON.stringify(item.id)})'>
+      <div class="card-tab" style="background:${color}"></div>
+      <div class="card-thumb">${item.thumbnail ? `<img src="${escapeAttr(item.thumbnail)}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.textContent='${icon}'">` : icon}</div>
+      <div class="card-body">
+        <p class="card-title">${escapeHtml(item.title)}</p>
+        <div class="card-brand">${escapeHtml(item.brand || 'Unbranded')}</div>
+        <div class="card-meta">
+          <span>${escapeHtml(item.format || '')}</span>
+          <span>${item.dateProduced ? new Date(item.dateProduced).getFullYear() : ''}</span>
+        </div>
+        ${tags.length ? `<div class="card-tags">${tags.map(t=>`<span class="tag-pill">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function setSearch(v){ ui.search=v; renderContent(); }
+function setFormat(v){ ui.format=v; renderContent(); }
+function setPlatform(v){ ui.platform=v; renderContent(); }
+
+function openDetail(id){
+  const item = items.find(i => i.id === id);
+  if(!item) return;
+  const color = FORMAT_COLOR[item.format] || 'var(--other)';
+  const tags = (item.tags||'').split(',').map(t=>t.trim()).filter(Boolean);
+  const modalHTML = `
+    <div class="modal-bg" id="modal-bg" onclick="if(event.target.id==='modal-bg') closeModal()">
+      <div class="modal">
+        <div class="detail-tab" style="background:${color}"></div>
+        <div class="detail-brand">${escapeHtml(item.brand || 'Unbranded')} ${item.campaign ? '· '+escapeHtml(item.campaign) : ''}</div>
+        <div class="detail-title">${escapeHtml(item.title)}</div>
+        <div class="detail-row"><span>Format</span><span>${escapeHtml(item.format||'')}</span></div>
+        <div class="detail-row"><span>Platform</span><span>${escapeHtml(item.platform||'')}</span></div>
+        ${item.talent ? `<div class="detail-row"><span>Talent</span><span>${escapeHtml(item.talent)}</span></div>` : ''}
+        <div class="detail-row"><span>Date produced</span><span>${item.dateProduced ? new Date(item.dateProduced).toLocaleDateString() : '—'}</span></div>
+        ${item.uploadedBy ? `<div class="detail-row"><span>Uploaded by</span><span>${escapeHtml(item.uploadedBy)}</span></div>` : ''}
+        ${tags.length ? `<div class="detail-tags">${tags.map(t=>`<span class="tag-pill">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+        ${item.notes ? `<div class="detail-notes">${escapeHtml(item.notes)}</div>` : ''}
+        <a class="watch-link" href="${escapeAttr(item.link)}" target="_blank" rel="noopener">▶ Open / Download</a>
+        <p class="footnote">Opens in OneDrive in a new tab. Download requires the link to be shared as "view + download."</p>
+        <div><button class="close-btn" onclick="closeModal()">Close</button></div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+function closeModal(){ const m=document.getElementById('modal-bg'); if(m) m.remove(); }
+
+loadData();
+</script>
+</body>
+</html>
