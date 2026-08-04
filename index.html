@@ -22,13 +22,14 @@
     --event:#3f8f7a;
     --playback:#7a8a99;
     --kol:#b0568f;
-    --endo:#d18a3a;
-    --block:#8a6a4a;
+    --media-avp:#3a6ea5;
+    --quasi-tvc:#b8433a;
     --obbcbb:#3a7a72;
     --social:#5a9e4a;
     --short-film:#6a5aa8;
-    --media-avp:#3a6ea5;
-    --quasi-tvc:#b8433a;
+    --plugs:#d18a3a;
+    --mini-docu:#7a6a4a;
+    --branded-capsule:#5a8ab8;
     --other:#8a8072;
   }
   *{box-sizing:border-box;}
@@ -141,15 +142,16 @@ let ui = { search:'', format:'all', platform:'all' };
 const FORMAT_COLOR = {
   'Ad Crawler':'var(--ad-crawler)', 'Jump-to-Gap':'var(--jump-gap)', 'Logo Drop':'var(--logo-drop)',
   'Event Highlights':'var(--event)', 'Playback':'var(--playback)', 'KOL Video':'var(--kol)',
-  'Endo Plug':'var(--endo)', 'Block Plug':'var(--block)', 'OBB/CBB':'var(--obbcbb)',
+  'Plugs':'var(--plugs)', 'OBB/CBB':'var(--obbcbb)',
   'Social Video':'var(--social)', 'Short Film':'var(--short-film)', 'Media Update AVP':'var(--media-avp)',
-  'Quasi TVC':'var(--quasi-tvc)', 'Others':'var(--other)'
+  'Quasi TVC':'var(--quasi-tvc)', 'Mini Docu':'var(--mini-docu)', 'Branded Capsule':'var(--branded-capsule)',
+  'Others':'var(--other)'
 };
 const FORMAT_ICON = {
   'Ad Crawler':'📜', 'Jump-to-Gap':'⏭️', 'Logo Drop':'🏷️', 'Event Highlights':'🎉',
-  'Playback':'▶️', 'KOL Video':'🌟', 'Endo Plug':'📣', 'Block Plug':'🧱',
-  'OBB/CBB':'🎬', 'Social Video':'📱', 'Short Film':'🎥', 'Media Update AVP':'📡',
-  'Quasi TVC':'🎯', 'Others':'🎞️'
+  'Playback':'▶️', 'KOL Video':'🌟', 'Plugs':'📣', 'OBB/CBB':'🎬',
+  'Social Video':'📱', 'Short Film':'🎥', 'Media Update AVP':'📡',
+  'Quasi TVC':'🎯', 'Mini Docu':'🎦', 'Branded Capsule':'💊', 'Others':'🎞️'
 };
 const FORMATS = Object.keys(FORMAT_ICON);
 const PLATFORMS = ['TV','Facebook','Instagram','TikTok','YouTube','Multi-platform','Other'];
