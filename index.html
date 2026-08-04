@@ -37,13 +37,13 @@
   #root{min-height:100vh;padding-bottom:50px;}
 
   .header{
-    padding:26px 20px 18px;border-bottom:3px solid var(--gold);
+    padding:34px 20px 24px;border-bottom:3px solid var(--gold);
     background:repeating-linear-gradient(135deg, var(--panel-raised) 0px, var(--panel-raised) 14px, var(--panel) 14px, var(--panel) 28px);
   }
   .header-inner{max-width:1000px;margin:0 auto;}
   .header h1{
-    font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:0.06em;margin:0;
-    color:#f4ecd8;text-shadow:0 2px 0 rgba(0,0,0,0.4);
+    font-family:'Bebas Neue',sans-serif;font-size:68px;letter-spacing:0.06em;margin:0;
+    color:#f4ecd8;text-shadow:0 3px 0 rgba(0,0,0,0.4);
   }
 
   .content{max-width:1000px;margin:0 auto;padding:20px;}
@@ -84,8 +84,7 @@
   .card:hover{transform:translateY(-2px);}
   .card-tab{height:8px;width:100%;}
   .card-thumb{
-    height:110px;background:#e4d9c1;display:flex;align-items:center;justify-content:center;
-    font-size:34px;color:rgba(36,31,20,0.25);border-bottom:1px solid rgba(36,31,20,0.15);
+    height:54px;background:#e4d9c1;border-bottom:1px solid rgba(36,31,20,0.15);
   }
   .card-body{padding:12px 14px 14px;}
   .card-title{font-family:'Special Elite',monospace;font-size:15px;line-height:1.3;margin:0 0 4px;}
@@ -127,7 +126,7 @@
   .load-msg{text-align:center;padding:60px 20px;color:var(--muted);}
 
   @media (max-width:480px){
-    .header h1{font-size:30px;}
+    .header h1{font-size:42px;}
     .grid{grid-template-columns:repeat(auto-fill, minmax(150px,1fr));}
   }
 </style>
@@ -230,7 +229,7 @@ function cardHTML(item){
   return `
     <div class="card" onclick='openDetail(${JSON.stringify(item.id)})'>
       <div class="card-tab" style="background:${color}"></div>
-      <div class="card-thumb">${item.thumbnail ? `<img src="${escapeAttr(item.thumbnail)}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.textContent='${icon}'">` : icon}</div>
+      ${item.thumbnail ? `<div class="card-thumb"><img src="${escapeAttr(item.thumbnail)}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.remove()"></div>` : ''}
       <div class="card-body">
         <p class="card-title">${escapeHtml(item.title)}</p>
         <div class="card-brand">${escapeHtml(item.brand || 'Unbranded')}</div>
