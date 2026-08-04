@@ -204,7 +204,7 @@ function renderContent(){
 
   el.innerHTML = `
     <div class="toolbar">
-      <input class="search" type="text" placeholder="Search by title, brand, campaign, talent, tags..." value="${escapeAttr(ui.search)}" oninput="setSearch(this.value)">
+      <input class="search" type="text" placeholder="Search by title, brand, campaign, talent, tags..." value="${escapeAttr(ui.search)}" oninput="setSearch(this.value, this)">
       <select onchange="setPlatform(this.value)">
         <option value="all">All platforms</option>
         ${PLATFORMS.map(p => `<option value="${p}" ${ui.platform===p?'selected':''}>${p}</option>`).join('')}
@@ -244,7 +244,16 @@ function cardHTML(item){
   `;
 }
 
-function setSearch(v){ ui.search=v; renderContent(); }
+function setSearch(v, inputEl){
+  const cursorPos = inputEl ? inputEl.selectionStart : v.length;
+  ui.search = v;
+  renderContent();
+  const restored = document.querySelector('.search');
+  if(restored){
+    restored.focus();
+    try{ restored.setSelectionRange(cursorPos, cursorPos); }catch(e){}
+  }
+}
 function setFormat(v){ ui.format=v; renderContent(); }
 function setPlatform(v){ ui.platform=v; renderContent(); }
 
